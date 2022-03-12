@@ -1,8 +1,12 @@
+import '../Components/bottomButton.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
-import 'resueableCard.dart';
-import 'cardContent.dart';
-import 'Constents/constents.dart';
+import '../Components/resueableCard.dart';
+import '../Components/cardContent.dart';
+import '../Constents/constents.dart';
+import '../Components/customRoundButton.dart';
+import 'package:bmi/Components/bmiCalculations.dart';
+import 'resultPage.dart';
 
 enum GenderEnum {
   male,
@@ -209,39 +213,26 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: kBottomBarColor,
-            width: double.infinity,
-            height: kBottomBarHeight,
-            margin: EdgeInsets.only(top: 15.0),
-            child: Center(
-              child: Text(
-                'CALCULATE YOUR BMI',
-              ),
-            ),
+          MyBottomButton(
+            onTap: () {
+              Calculations myCalculation =
+                  Calculations(weight: weight, Height: heightValue);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => myResultPage(
+                    result: myCalculation.bmiResult(),
+                    resultValue: myCalculation.bmiCalculate(),
+                    resultGuide: myCalculation.userGuide(),
+                  ),
+                ),
+              );
+            },
+            myTitle: 'CALCULATE NOW',
           ),
         ],
       ),
-    );
-  }
-}
-
-class RoundCustomButton extends StatelessWidget {
-  RoundCustomButton({this.ico, this.onPressed});
-  final IconData? ico;
-  final void Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(ico),
-      onPressed: onPressed,
-      constraints: BoxConstraints.tightFor(
-        width: 45.0,
-        height: 45.0,
-      ),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
     );
   }
 }

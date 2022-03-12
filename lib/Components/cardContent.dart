@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Constents/constents.dart';
+import '../Constents/constents.dart';
 
 class myCardData extends StatelessWidget {
   myCardData({this.cardIcon, this.cardText});
