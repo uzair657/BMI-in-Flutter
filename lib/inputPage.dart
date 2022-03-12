@@ -2,10 +2,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'resueableCard.dart';
 import 'cardContent.dart';
+import 'Constents/constents.dart';
 
-const myActiveCardColor = Color(0xFF1D1E33);
-const bottomBarHeight = 80.0;
-const bottomBarColor = Color(0xFFEB1555);
+enum GenderEnum {
+  male,
+  female,
+}
+int heightValue = 150;
+int weight = 45;
+int age = 18;
 
 class InputPage extends StatefulWidget {
   @override
@@ -13,6 +18,7 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  GenderEnum? SelectedGender;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +32,15 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: reuseableCard(
-                    colour: myActiveCardColor,
+                    onPress: () {
+                      setState(() {
+                        SelectedGender = GenderEnum.male;
+                      });
+                    },
+                    //k is used to represent Constents that are created by developer
+                    colour: SelectedGender == GenderEnum.male
+                        ? kMyActiveCardColor
+                        : kMyInActiveCardColor,
                     cardChild: myCardData(
                       cardIcon: FontAwesomeIcons.mars,
                       cardText: 'MALE',
@@ -35,11 +49,19 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: reuseableCard(
+                    onPress: () {
+                      setState(() {
+                        SelectedGender = GenderEnum.female;
+                      });
+                    },
                     cardChild: myCardData(
                       cardIcon: FontAwesomeIcons.venus,
                       cardText: 'FEMALE',
                     ),
-                    colour: myActiveCardColor,
+                    //k is used to represent Constents that are created by developer
+                    colour: SelectedGender == GenderEnum.female
+                        ? kMyActiveCardColor
+                        : kMyInActiveCardColor,
                   ),
                 ),
               ],
@@ -47,7 +69,54 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: reuseableCard(
-              colour: myActiveCardColor,
+              colour: kMyActiveCardColor,
+              cardChild: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'HEIGHT',
+                    style: kTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text(
+                        heightValue.toString(),
+                        style: kNumberStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: kTextStyle,
+                      ),
+                    ],
+                  ),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                        inactiveTrackColor: Colors.grey,
+                        activeTrackColor: Colors.white,
+                        thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 10.0),
+                        overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 23.0),
+                        overlayColor: Color(0X2941C0F7)),
+                    child: Slider(
+                      min: kMinimumValue,
+                      max: kMaximumValue,
+                      value: heightValue.toDouble(),
+                      // activeColor: kBottomBarColor,
+                      // inactiveColor: Colors.white,
+                      onChanged: (double heightOnChange) {
+                        setState(() {
+                          heightValue = heightOnChange.round();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -55,21 +124,95 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: reuseableCard(
-                    colour: myActiveCardColor,
+                    //k is used to represent Constents that are created by developer
+                    colour: kMyActiveCardColor,
+                    cardChild: Column(
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: kTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kNumberStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundCustomButton(
+                              ico: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundCustomButton(
+                              ico: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: reuseableCard(
-                    colour: myActiveCardColor,
+                    //k is used to represent Constents that are created by developer
+                    colour: kMyActiveCardColor,
+                    cardChild: Column(
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumberStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundCustomButton(
+                              ico: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundCustomButton(
+                              ico: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            color: bottomBarColor,
+            color: kBottomBarColor,
             width: double.infinity,
-            height: bottomBarHeight,
+            height: kBottomBarHeight,
             margin: EdgeInsets.only(top: 15.0),
             child: Center(
               child: Text(
@@ -79,6 +222,26 @@ class _InputPageState extends State<InputPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class RoundCustomButton extends StatelessWidget {
+  RoundCustomButton({this.ico, this.onPressed});
+  final IconData? ico;
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(ico),
+      onPressed: onPressed,
+      constraints: BoxConstraints.tightFor(
+        width: 45.0,
+        height: 45.0,
+      ),
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
     );
   }
 }

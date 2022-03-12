@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Constents/constents.dart';
 
 class myCardData extends StatelessWidget {
   myCardData({this.cardIcon, this.cardText});
@@ -16,7 +17,7 @@ class myCardData extends StatelessWidget {
         ),
         Text(
           cardText!,
-          style: TextStyle(fontSize: 18.0),
+          style: kTextStyle,
         ),
       ],
     );
