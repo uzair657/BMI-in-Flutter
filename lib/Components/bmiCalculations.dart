@@ -5,6 +5,7 @@ class Calculations {
   final int Height;
   final int weight;
   double _bmi = 0.0;
+  // String? _result;
   String bmiCalculate() {
     _bmi = weight / pow(Height / 100, 2);
     return _bmi.toStringAsFixed(1);
