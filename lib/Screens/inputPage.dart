@@ -76,7 +76,7 @@ class _InputPageState extends State<InputPage> {
               colour: kMyActiveCardColor,
               cardChild: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                //mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'HEIGHT',
@@ -131,6 +131,7 @@ class _InputPageState extends State<InputPage> {
                     //k is used to represent Constents that are created by developer
                     colour: kMyActiveCardColor,
                     cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'WEIGHT',
@@ -173,6 +174,7 @@ class _InputPageState extends State<InputPage> {
                     //k is used to represent Constents that are created by developer
                     colour: kMyActiveCardColor,
                     cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'AGE',
